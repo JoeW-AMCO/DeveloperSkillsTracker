@@ -4,8 +4,7 @@
     {
         static void Main(string[] args)
         {
-            string projectName = "Developer Skills Tracker";
-            Console.WriteLine($"Welcome to my {projectName}!");          
+            Console.WriteLine("Welcome to the Developer Skills Tracker!\nPlease enter your username:");
         }
     }
 }
