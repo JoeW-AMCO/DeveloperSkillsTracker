@@ -9,7 +9,7 @@ namespace DeveloperSkillsTracker
     internal class Skill : UserAttribute
     {
         //Constructor
-        public Skill(int skillID, int userID, string skillName, string skillDescription)
-            : base(skillID, userID, skillName, skillDescription) { }
+        public Skill(int skillID, string skillName, string skillDescription)
+            : base(skillID, skillName, skillDescription) { }
     }
 }

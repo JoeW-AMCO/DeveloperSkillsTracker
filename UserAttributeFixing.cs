@@ -10,15 +10,13 @@ namespace DeveloperSkillsTracker
     {
         //Properties
         public int AttributeID { get; set; }
-        public int UserID { get; set; }
         public string AttributeName { get; set; }
         public string AttributeDescription { get; set; }
 
         //Constructors
-        public UserAttribute(int attributeID, int userID, string attributeName, string attributeDescription)
+        public UserAttribute(int attributeID, string attributeName, string attributeDescription)
         {
-            AttributeID = attributeID;
-            UserID = userID;
+            AttributeID = attributeID;            
             AttributeName = attributeName;
             AttributeDescription = attributeDescription;
         }

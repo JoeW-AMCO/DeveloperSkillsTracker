@@ -11,6 +11,9 @@ namespace DeveloperSkillsTracker
         //Properties
         public int UserID { get; private set; }
         public string Username { get; private set; }
+        public Skill Skills { get; private set; }
+        public Experience Experiences { get; private set; }
+        public Certification Certifications { get; private set; }
 
         //Fields
 
