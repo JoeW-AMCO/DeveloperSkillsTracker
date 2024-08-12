@@ -6,30 +6,34 @@ namespace DeveloperSkillsTracker
         static void Main(string[] args)
         {
             SqlConnector dbConnection = new SqlConnector();
+            string dbUsername = string.Empty;
             Console.Write("Welcome to the Developer Skills Tracker!\n");                       
 
             while (true)
             {
                 Console.Write("Username: ");
-                string username = Console.ReadLine();
+                string username = Console.ReadLine() ?? string.Empty;
                 Console.Write("Password: ");
-                string password = Console.ReadLine();
-                DataTable userTable = dbConnection.ExecuteQuery($"SELECT * FROM dbo.devUser WHERE userName = '{username}' AND userPass= '{password}'");
+                string password = Console.ReadLine() ?? string.Empty;
+                DataTable userTable = dbConnection.ExecuteQuery($"SELECT * FROM dbo.DimUser WHERE Username = '{username}' AND Password= '{password}'");
 
                 try 
                 {
-                    string dbUsername = (string)userTable.Rows[0]["userName"];
-                    string dbPassword = (string)userTable.Rows[0]["userPass"];
+                    dbUsername = (string)userTable.Rows[0]["Username"];
+                    string dbPassword = (string)userTable.Rows[0]["Password"];
                     break;
                 }
                 //userTable.Rows[0]["userName"] != "" && userTable.Rows[0]["userName"] != "")
                 catch
                 {
                     Console.WriteLine("Invalid username or password. Please try again.");
-                }
+                }               
             }
 
-            //devUser user = new devUser(username);
+            //At this point I'll want to start using methods from classes such as devUser to handle making all of the variables
+            //specific to the user to be displayed
+            User user = new User(dbUsername);
+            Console.WriteLine($"Welcome, {user.Username}!");
         }
     }
 }
