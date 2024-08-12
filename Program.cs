@@ -1,11 +1,16 @@
-﻿using System.Data;
+﻿using DeveloperSkillsTracker.Database;
+using System.Data;
+using System.Linq;
+
 namespace DeveloperSkillsTracker
 {
     internal class Program
     {
         static void Main(string[] args)
         {
-            SqlConnector dbConnection = new SqlConnector();
+            
+            
+
             string dbUsername = string.Empty;
             Console.Write("Welcome to the Developer Skills Tracker!\n");                       
 
@@ -15,12 +20,22 @@ namespace DeveloperSkillsTracker
                 string username = Console.ReadLine() ?? string.Empty;
                 Console.Write("Password: ");
                 string password = Console.ReadLine() ?? string.Empty;
-                DataTable userTable = dbConnection.ExecuteQuery($"SELECT * FROM dbo.DimUser WHERE Username = '{username}' AND Password= '{password}'");
+                //DataTable userTable = dbConnection.ExecuteQuery($"SELECT * FROM dbo.DimUser WHERE Username = '{username}' AND Password= '{password}'");
 
                 try 
                 {
-                    dbUsername = (string)userTable.Rows[0]["Username"];
-                    string dbPassword = (string)userTable.Rows[0]["Password"];
+                    using (var context = new MyDbContext())
+                    {
+                        var currentUser = context.Users
+                                              .Where(u => u.Username == username && u.Password == password)
+                                              .FirstOrDefault();
+
+                        dbUsername = currentUser?.Username;
+                        Console.WriteLine(dbUsername);
+                    }
+                    
+                    //dbUsername = (string)userTable.Rows[0]["Username"];
+                    //string dbPassword = (string)userTable.Rows[0]["Password"];
                     break;
                 }
                 //userTable.Rows[0]["userName"] != "" && userTable.Rows[0]["userName"] != "")
