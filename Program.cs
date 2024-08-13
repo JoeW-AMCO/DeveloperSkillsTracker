@@ -30,10 +30,11 @@ namespace DeveloperSkillsTracker
                                               .Where(u => u.Username == username && u.Password == password)
                                               .FirstOrDefault();
 
-                        dbUsername = currentUser?.Username;
+                        dbUsername = currentUser.Username;
                         Console.WriteLine(dbUsername);
                     }
                     
+
                     //dbUsername = (string)userTable.Rows[0]["Username"];
                     //string dbPassword = (string)userTable.Rows[0]["Password"];
                     break;
