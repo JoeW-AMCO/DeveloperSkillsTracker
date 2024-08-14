@@ -18,5 +18,8 @@ namespace DeveloperSkillsTracker.Database
         public string Certification_Name { get; set; }
         [Column("Certification_Description")]
         public string Certification_Description { get; set; }
+
+        //Navigation property to represent the related user
+        public DimUser UserPK { get; set; }
     }
 }

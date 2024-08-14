@@ -18,5 +18,8 @@ namespace DeveloperSkillsTracker.Database
         public string Experience_Name { get; set; }
         [Column("Experience_Description")]
         public string Experience_Description { get; set; }
+
+        //Navigation property to represent the the related user
+        public DimUser UserPK { get; set; }
     }
 }

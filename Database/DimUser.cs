@@ -16,5 +16,10 @@ namespace DeveloperSkillsTracker.Database
         public string Username { get; set; }
         [Column("Password")]
         public string Password { get; set; }
+
+        //Navigation property to represent the collection of related skills
+        public ICollection<DimSkill> SkillFK { get; set; }
+        public ICollection<DimExperience> ExperienceFK { get; set; }
+        public ICollection<DimCertification> CertificationFK { get; set; }
     }
 }
