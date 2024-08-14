@@ -14,7 +14,9 @@ namespace DeveloperSkillsTracker.Database
         public int Skill_ID { get; set; }
         [Column("FK_User_ID")]
         public int User_ID { get; set; }
-        [Column("Skill")]
+        [Column("Skill_Title")]
         public string Skill_Name { get; set; }
+        [Column("Skill_Description")]
+        public string Skill_Description { get; set; }
     }
 }

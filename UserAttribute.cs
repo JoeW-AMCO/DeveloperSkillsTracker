@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DeveloperSkillsTracker.Database;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,22 +10,33 @@ namespace DeveloperSkillsTracker
     internal class UserAttribute
     {
         //Properties
-        public int AttributeID { get; set; }
+        public int UserID { get; set; }
         public string AttributeName { get; set; }
         public string AttributeDescription { get; set; }
 
         //Constructors
-        public UserAttribute(int attributeID, string attributeName, string attributeDescription)
+        public UserAttribute(int userID, string attributeName, string attributeDescription)
         {
-            AttributeID = attributeID;            
+            UserID = userID;            
             AttributeName = attributeName;
             AttributeDescription = attributeDescription;
         }
 
         //Methods
-        public void AddUserAttribute()
+        public void AddUserAttribute(int userId, string attributeName, string attributeDesc)
         {
+            using (var context = new MyDbContext())
+            {
+                var newSkill = new DimSkill
+                {
+                    User_ID = userId,
+                    Skill_Name = attributeName,
+                    Skill_Description = attributeDesc
+                };
 
+                context.Skills.Add(newSkill);
+                context.SaveChanges();
+            }
         }
 
         public void UpdateUserAttribute()

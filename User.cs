@@ -18,9 +18,10 @@ namespace DeveloperSkillsTracker
         //Fields
 
         //Constructors
-        public User(string name)
+        public User(int userID, string name)
         {
-            Username = name;
+            UserID = userID;
+            Username = name;            
         }
 
         //Methods

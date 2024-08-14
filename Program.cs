@@ -2,6 +2,7 @@
 using System.Data;
 using System.Linq;
 
+
 namespace DeveloperSkillsTracker
 {
     internal class Program
@@ -12,6 +13,7 @@ namespace DeveloperSkillsTracker
             
 
             string dbUsername = string.Empty;
+            int dbUserID;
             Console.Write("Welcome to the Developer Skills Tracker!\n");                       
 
             while (true)
@@ -31,7 +33,8 @@ namespace DeveloperSkillsTracker
                                               .FirstOrDefault();
 
                         dbUsername = currentUser.Username;
-                        Console.WriteLine(dbUsername);
+                        dbUserID = currentUser.User_ID;
+                        Console.WriteLine(dbUsername + " " + dbUserID);
                     }
                     
 
@@ -48,8 +51,15 @@ namespace DeveloperSkillsTracker
 
             //At this point I'll want to start using methods from classes such as devUser to handle making all of the variables
             //specific to the user to be displayed
-            User user = new User(dbUsername);
-            Console.WriteLine($"Welcome, {user.Username}!");
+            User user = new User(dbUserID, dbUsername);
+            //Each attribute will need to be given a fk user id, title, and desc
+            Skill testSkill = new Skill(user.UserID, "Making a new method", "This proves you're able to make a class method");
+            Console.WriteLine($"Welcome, {user.Username}! Pretty sure your id is {user.UserID}");
+            Console.WriteLine($"Your skill is {testSkill.AttributeName} with a description of {testSkill.AttributeDescription}");
+
+            testSkill.AddUserAttribute(user.UserID, testSkill.AttributeName, testSkill.AttributeDescription);
+
+            //Put this data into the db, then turn it into a function of the attribute class
         }
     }
 }

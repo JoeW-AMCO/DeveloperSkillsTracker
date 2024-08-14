@@ -3,6 +3,7 @@ using DeveloperSkillsTracker;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DeveloperSkillsTracker.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240813115557_databaseChange")]
+    partial class databaseChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,15 +32,10 @@ namespace DeveloperSkillsTracker.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Certification_ID"));
 
-                    b.Property<string>("Certification_Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Certification_Description");
-
                     b.Property<string>("Certification_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Certification_Title");
+                        .HasColumnName("Certification");
 
                     b.Property<int>("User_ID")
                         .HasColumnType("int")
@@ -58,8 +56,7 @@ namespace DeveloperSkillsTracker.Migrations
 
                     b.Property<string>("Experience_Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Experience_Description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Experience_Name")
                         .IsRequired()
@@ -85,13 +82,12 @@ namespace DeveloperSkillsTracker.Migrations
 
                     b.Property<string>("Skill_Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Skill_Description");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Skill_Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Skill_Title");
+                        .HasColumnName("Skill");
 
                     b.Property<int>("User_ID")
                         .HasColumnType("int")

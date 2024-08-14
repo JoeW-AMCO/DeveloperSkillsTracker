@@ -9,7 +9,7 @@ namespace DeveloperSkillsTracker
     internal class Experience : UserAttribute
     {
         //Constructor
-        public Experience(int experienceID, string experienceName, string experienceDescription) 
-            : base(experienceID, experienceName, experienceDescription) { }
+        public Experience(int userID, string experienceName, string experienceDescription) 
+            : base(userID, experienceName, experienceDescription) { }
     }
 }

@@ -14,7 +14,9 @@ namespace DeveloperSkillsTracker.Database
         public int Certification_ID { get; set; }
         [Column("FK_User_ID")]
         public int User_ID { get; set; }
-        [Column("Certification")]
+        [Column("Certification_Title")]
         public string Certification_Name { get; set; }
+        [Column("Certification_Description")]
+        public string Certification_Description { get; set; }
     }
 }

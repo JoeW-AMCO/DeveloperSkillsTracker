@@ -9,7 +9,7 @@ namespace DeveloperSkillsTracker
     internal class Certification : UserAttribute
     {
         //Constructor
-        public Certification(int certificationID, string certificationName, string certificationDescription)
-            : base(certificationID, certificationName, certificationDescription) { }
+        public Certification(int userID, string certificationName, string certificationDescription)
+            : base(userID, certificationName, certificationDescription) { }
     }
 }

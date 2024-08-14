@@ -14,7 +14,9 @@ namespace DeveloperSkillsTracker.Database
         public int Experience_ID { get; set; }
         [Column("FK_User_ID")]
         public int User_ID { get; set; }
-        [Column("Experience")]
-        public string Skill_Name { get; set; }
+        [Column("Experience_Title")]
+        public string Experience_Name { get; set; }
+        [Column("Experience_Description")]
+        public string Experience_Description { get; set; }
     }
 }
