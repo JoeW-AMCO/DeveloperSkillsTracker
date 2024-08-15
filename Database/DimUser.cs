@@ -21,5 +21,13 @@ namespace DeveloperSkillsTracker.Database
         public ICollection<DimSkill> SkillFK { get; set; }
         public ICollection<DimExperience> ExperienceFK { get; set; }
         public ICollection<DimCertification> CertificationFK { get; set; }
+
+        //Constructors
+        public DimUser() { }
+        public DimUser(string name)
+        {
+            Username = name; 
+            User_ID = User_ID;
+        }
     }
 }

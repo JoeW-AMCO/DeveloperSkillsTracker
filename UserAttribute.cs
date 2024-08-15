@@ -1,6 +1,8 @@
 ﻿using DeveloperSkillsTracker.Database;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,43 +12,43 @@ namespace DeveloperSkillsTracker
     internal class UserAttribute
     {
         //Properties
-        public int UserID { get; set; }
+        /*public int UserID { get; set; }
         public string AttributeName { get; set; }
-        public string AttributeDescription { get; set; }
+        public string AttributeDescription { get; set; }*/
+        public int Skill_ID { get; set; }
+        public int User_ID { get; set; }
+        public string Skill_Name { get; set; }
+
+        public string Skill_Description { get; set; }
 
         //Constructors
-        public UserAttribute(int userID, string attributeName, string attributeDescription)
+        /*public UserAttribute(int userID, string attributeName, string attributeDescription)
         {
-            UserID = userID;            
-            AttributeName = attributeName;
-            AttributeDescription = attributeDescription;
-        }
+            //Skill_ID = userID;            
+            User_ID = userID;
+            Skill_Name = attributeName;
+            Skill_Description = attributeDescription;
+        }*/
 
         //Methods
-        public void AddUserAttribute(int userId, string attributeName, string attributeDesc)
+        public virtual void AddUserAttribute(DimSkill newSkill)
         {
-            using (var context = new MyDbContext())
-            {
-                var newSkill = new DimSkill
-                {
-                    User_ID = userId,
-                    Skill_Name = attributeName,
-                    Skill_Description = attributeDesc
-                };
-
-                context.Skills.Add(newSkill);
-                context.SaveChanges();
-            }
         }
 
-        public void UpdateUserAttribute()
+        public virtual void AddUserAttribute(DimExperience newExperience)
         {
-
         }
 
-        public void DeleteUserAttribute() 
+        public virtual void AddUserAttribute(DimCertification tempCertification)
         {
+        }
 
+        public virtual void UpdateUserAttribute()
+        {
+        }
+
+        public virtual void DeleteUserAttribute(int userID, string attributeName) 
+        {         
         }
 
 

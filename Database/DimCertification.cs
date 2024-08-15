@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
-    internal class DimCertification
+    internal class DimCertification : UserAttribute
     {
         [Key]
         public int Certification_ID { get; set; }
@@ -21,5 +21,26 @@ namespace DeveloperSkillsTracker.Database
 
         //Navigation property to represent the related user
         public DimUser UserPK { get; set; }
+
+        // Parameterless constructor required by EF Core
+        public DimCertification() { }
+
+        //test constructor
+        public DimCertification(int userID, string certificationName, string certificationDescription)
+        {
+            //Skill_ID = userID;            
+            User_ID = userID;
+            Skill_Name = certificationName;
+            Skill_Description = certificationDescription;
+        }
+
+        public override void AddUserAttribute(DimCertification newCertification)
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Certifications.Add(newCertification);
+                context.SaveChanges();
+            }
+        }
     }
 }

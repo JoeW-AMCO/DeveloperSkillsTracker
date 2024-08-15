@@ -8,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
-    internal class DimExperience
+    internal class DimExperience : UserAttribute
     {
         [Key]
         public int Experience_ID { get; set; }
@@ -21,5 +21,26 @@ namespace DeveloperSkillsTracker.Database
 
         //Navigation property to represent the the related user
         public DimUser UserPK { get; set; }
+
+        // Parameterless constructor required by EF Core
+        public DimExperience() { }
+
+        //test constructor
+        public DimExperience(int userID, string experienceName, string experienceDescription)
+        {
+            //Skill_ID = userID;            
+            User_ID = userID;
+            Experience_Name = experienceName;
+            Experience_Description = experienceDescription;
+        }
+
+        public override void AddUserAttribute(DimExperience newExperience)
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Experiences.Add(newExperience);
+                context.SaveChanges();
+            }
+        }
     }
 }
