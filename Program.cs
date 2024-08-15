@@ -55,7 +55,16 @@ namespace DeveloperSkillsTracker
             {
                 Console.WriteLine(skill.Skill_Name);
             }
-            skillsList[0].DeleteUserAttribute(skillsList[0]);
+            //Need to add error handling/other logic to avoid issues when trying to delete when there are no skills etc
+            //skillsList[0].AddUserAttribute(skillsList[0]);
+
+            DimSkill newSkill = new DimSkill
+            {
+                Skill_Name = "C#",
+                User_ID = currentUserID,
+                Skill_Description = "Struggling"
+            };
+            newSkill.AddUserAttribute(newSkill);
 
         }
     }
