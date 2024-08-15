@@ -8,20 +8,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
-<<<<<<< Updated upstream
-    internal class DimCertification
-=======
     internal class DimCertification// : UserAttribute
->>>>>>> Stashed changes
     {
         [Key]
         public int Certification_ID { get; set; }
         [Column("FK_User_ID")]
         public int User_ID { get; set; }
-        [Column("Certification")]
+        [Column("Certification_Title")]
         public string Certification_Name { get; set; }
-<<<<<<< Updated upstream
-=======
+
         [Column("Certification_Description")]
         public string Certification_Description { get; set; }
 
@@ -57,6 +52,5 @@ namespace DeveloperSkillsTracker.Database
                 context.SaveChanges();
             }
         }
->>>>>>> Stashed changes
     }
 }

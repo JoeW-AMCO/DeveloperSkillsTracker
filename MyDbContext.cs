@@ -27,4 +27,3 @@ namespace DeveloperSkillsTracker
         }
     }
 }
-//@"data source=ASWW00227\SQLEXPRESS;initial catalog=SkillsTracker;trusted_connection=true;TrustServerCertificate=True;"

@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,11 +8,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
-<<<<<<< Updated upstream
-    internal class DimSkill
-=======
+
     internal class DimSkill// : UserAttribute
->>>>>>> Stashed changes
+
     {
         [Key]
         public int Skill_ID { get; set; }
@@ -20,8 +18,6 @@ namespace DeveloperSkillsTracker.Database
         public int User_ID { get; set; }
         [Column("Skill")]
         public string Skill_Name { get; set; }
-<<<<<<< Updated upstream
-=======
         [Column("Skill_Description")]
         public string Skill_Description { get; set; }        
 
@@ -57,6 +53,5 @@ namespace DeveloperSkillsTracker.Database
                 context.SaveChanges();
             }
         }
->>>>>>> Stashed changes
     }
 }

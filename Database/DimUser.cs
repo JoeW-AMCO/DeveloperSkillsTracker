@@ -16,8 +16,8 @@ namespace DeveloperSkillsTracker.Database
         public string Username { get; set; }
         [Column("Password")]
         public string Password { get; set; }
-<<<<<<< Updated upstream
-=======
+
+
 
         //Navigation property to represent the collection of related skills
         public ICollection<DimSkill> SkillFK { get; set; }
@@ -30,6 +30,5 @@ namespace DeveloperSkillsTracker.Database
         {
             Username = name;          
         }
->>>>>>> Stashed changes
     }
 }
