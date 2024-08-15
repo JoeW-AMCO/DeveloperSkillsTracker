@@ -8,7 +8,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
+<<<<<<< Updated upstream
     internal class DimCertification
+=======
+    internal class DimCertification// : UserAttribute
+>>>>>>> Stashed changes
     {
         [Key]
         public int Certification_ID { get; set; }
@@ -16,5 +20,43 @@ namespace DeveloperSkillsTracker.Database
         public int User_ID { get; set; }
         [Column("Certification")]
         public string Certification_Name { get; set; }
+<<<<<<< Updated upstream
+=======
+        [Column("Certification_Description")]
+        public string Certification_Description { get; set; }
+
+        //Navigation property to represent the related user
+        public DimUser UserPK { get; set; }
+
+        // Parameterless constructor required by EF Core
+        public DimCertification() { }
+
+        //test constructor
+        public DimCertification(int userID, string certificationName, string certificationDescription)
+        {
+            //Skill_ID = userID;            
+            User_ID = userID;
+            Certification_Name = certificationName;
+            Certification_Description = certificationDescription;
+        }
+
+        public void AddUserAttribute(DimCertification newCertification)
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Certifications.Add(newCertification);
+                context.SaveChanges();
+            }
+        }
+
+        public void DeleteUserAttribute(DimCertification oldCertification)
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Certifications.Remove(oldCertification);
+                context.SaveChanges();
+            }
+        }
+>>>>>>> Stashed changes
     }
 }

@@ -46,10 +46,28 @@ namespace DeveloperSkillsTracker
                 }               
             }
 
+<<<<<<< Updated upstream
             //At this point I'll want to start using methods from classes such as devUser to handle making all of the variables
             //specific to the user to be displayed
             User user = new User(dbUsername);
             Console.WriteLine($"Welcome, {user.Username}!");
         }
+=======
+            Console.WriteLine($"Welcome, {currentUsername}! Pretty sure your id is {currentUserID}");
+
+            List<DimSkill> skillsList;
+            using (var context = new MyDbContext())
+            {                
+                skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
+            }
+
+            foreach (var skill in skillsList)
+            {
+                Console.WriteLine(skill.Skill_Name);
+            }
+            skillsList[0].DeleteUserAttribute(skillsList[0]);         
+                
+    }
+>>>>>>> Stashed changes
     }
 }
