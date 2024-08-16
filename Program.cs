@@ -9,7 +9,11 @@ namespace DeveloperSkillsTracker
     {
         static void Main(string[] args)
         {
+            var context = new MyDbContext();
             List<DimUser> currentUser;
+            List<DimSkill> skillsList;
+            List<DimExperience> experiencesList;
+            List<DimCertification> certificationsList;
             string currentUsername;
             int currentUserID;
             Console.Write("Welcome to the Developer Skills Tracker!\n");
@@ -21,35 +25,27 @@ namespace DeveloperSkillsTracker
                 Console.Write("Password: ");
                 string password = Console.ReadLine() ?? string.Empty;
 
-                using (var context = new MyDbContext())
+                var tryLogin = context.Users
+                                        .Where(u => u.Username == username && u.Password == password)
+                                        .FirstOrDefault();
+
+                if (tryLogin != null && tryLogin.Username != null && tryLogin.Password != null)
                 {
-                    var tryLogin = context.Users
-                                            .Where(u => u.Username == username && u.Password == password)
-                                            .FirstOrDefault();
-                    if (tryLogin != null && tryLogin.Username != null && tryLogin.Password != null)
-                    {
-                        /*currentUser = context.Users
-                        .Where(u => u.Username == username).ToList();*/
-                        currentUsername = tryLogin.Username;
-                        currentUserID = tryLogin.User_ID;
-                        break;
-                    }
-                    else
-                    {
-                        Console.WriteLine("Invalid username or password. Please try again.");
-                    }
+                    currentUsername = tryLogin.Username;
+                    currentUserID = tryLogin.User_ID;
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Invalid username or password. Please try again.");
                 }
             }
-
+            
             Console.WriteLine($"Welcome, {currentUsername}! Pretty sure your id is {currentUserID}");
 
-            List<DimSkill> skillsList;
-            using (var context = new MyDbContext())
-            {
-                skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
-                //context.Skills.
-
-            }
+            
+            
+            skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();                     
 
             foreach (var skill in skillsList)
             {
@@ -60,11 +56,12 @@ namespace DeveloperSkillsTracker
 
             DimSkill newSkill = new DimSkill
             {
-                Skill_Name = "C#",
+                Skill_Name = "Refactoring",
                 User_ID = currentUserID,
-                Skill_Description = "Struggling"
+                Skill_Description = "Updating inheritance"
             };
-            newSkill.AddUserAttribute(newSkill);
+
+            newSkill.AddUserAttribute(context);
 
         }
     }

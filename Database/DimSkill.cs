@@ -9,49 +9,41 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace DeveloperSkillsTracker.Database
 {
 
-    internal class DimSkill// : UserAttribute
+    internal class DimSkill : UserAttribute
 
     {
         [Key]
         public int Skill_ID { get; set; }
-        [Column("FK_User_ID")]
-        public int User_ID { get; set; }
         [Column("Skill_Title")]
         public string Skill_Name { get; set; }
         [Column("Skill_Description")]
         public string Skill_Description { get; set; }        
 
-        //Navigation property to represent the related user
-        public DimUser UserPK { get; set; }
-
+        //Constructors
         // Parameterless constructor required by EF Core
         public DimSkill() { }
-
-        //test constructor
+        
         public DimSkill(int userID, string skillName, string skillDescription)
+            : base(userID)
         {
-            //Skill_ID = userID;            
-            User_ID = userID;
             Skill_Name = skillName;
             Skill_Description = skillDescription;
         }
 
-        public void AddUserAttribute(DimSkill newSkill)
+        public override void AddUserAttribute(MyDbContext context)
         {
-            using (var context = new MyDbContext())
-            {
-                context.Skills.Add(newSkill);
-                context.SaveChanges();
-            }
+                context.Skills.Add(this);
+                context.SaveChanges();            
         }
 
-        public void DeleteUserAttribute(DimSkill oldSkill)
+        public override void DeleteUserAttribute(MyDbContext context)
         {
-            using (var context = new MyDbContext())
-            {
-                context.Skills.Remove(oldSkill);
-                context.SaveChanges();
-            }
+            
+        }
+
+        public override void ChangeUserAttribute(MyDbContext context)
+        {
+            
         }
     }
 }

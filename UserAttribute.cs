@@ -4,24 +4,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 ﻿using DeveloperSkillsTracker.Database;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker
 {
     internal abstract class UserAttribute
     {
         //Properties
-        public int AttributeID { get; set; }
-        public string AttributeName { get; set; }
-
-        public string AttributeDescription { get; set; }
+        [Column("FK_User_ID")]
+        public int User_ID { get; set; }
+        //Navigation property to represent the related user
+        public DimUser UserPK { get; set; }
 
         //Constructors
-        public UserAttribute(int attributeID, string attributeName, string attributeDescription)
+        protected UserAttribute() { }
+
+        protected UserAttribute(int userID)
         {
-            AttributeID = attributeID;            
-            AttributeID = attributeID;
-            AttributeName = attributeName;
-            AttributeDescription = attributeDescription;
+            User_ID = userID;            
         }
 
         //Methods
@@ -29,11 +30,5 @@ namespace DeveloperSkillsTracker
         public abstract void AddUserAttribute(MyDbContext context);
         public abstract void DeleteUserAttribute(MyDbContext context);
         public abstract void ChangeUserAttribute(MyDbContext context);
-
-
-        //Fields to hold data
-        //Properties to access data
-        //Constructor to initialise data
-        //Methods to manipulate data
     }
 }
