@@ -8,48 +8,51 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DeveloperSkillsTracker.Database
 {
-    internal class DimCertification// : UserAttribute
+    internal class DimCertification : UserAttribute
     {
         [Key]
         public int Certification_ID { get; set; }
-        [Column("FK_User_ID")]
-        public int User_ID { get; set; }
         [Column("Certification_Title")]
         public string Certification_Name { get; set; }
-
         [Column("Certification_Description")]
         public string Certification_Description { get; set; }
 
-        //Navigation property to represent the related user
-        public DimUser UserPK { get; set; }
-
+        //Constructors
         // Parameterless constructor required by EF Core
         public DimCertification() { }
 
-        //test constructor
         public DimCertification(int userID, string certificationName, string certificationDescription)
+            : base(userID)
         {
-            //Skill_ID = userID;            
-            User_ID = userID;
             Certification_Name = certificationName;
             Certification_Description = certificationDescription;
         }
 
-        public void AddUserAttribute(DimCertification newCertification)
+        public override void AddUserAttribute(MyDbContext context)
         {
-            using (var context = new MyDbContext())
-            {
-                context.Certifications.Add(newCertification);
-                context.SaveChanges();
-            }
+            context.Certifications.Add(this);
+            context.SaveChanges();
         }
 
-        public void DeleteUserAttribute(DimCertification oldCertification)
+        public override void DeleteUserAttribute(MyDbContext context)
         {
-            using (var context = new MyDbContext())
+            context.Certifications.Remove(this);
+            context.SaveChanges();
+        }
+
+        public static void ChangeUserAttribute(int currentUserID, int certificationID, string certificationName, string certificationDescription, MyDbContext context)
+        {
+            var updatedCertification = context.Certifications.FirstOrDefault(x => x.Certification_ID == certificationID);
+            int updatedCertificationID = updatedCertification.User_ID;
+            if (updatedCertification != null && updatedCertificationID == currentUserID)
             {
-                context.Certifications.Remove(oldCertification);
+                updatedCertification.Certification_Name = certificationName;
+                updatedCertification.Certification_Description = certificationDescription;
                 context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Couldn't save changes.");
             }
         }
     }
