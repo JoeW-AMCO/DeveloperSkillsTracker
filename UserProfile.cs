@@ -63,5 +63,43 @@ namespace DeveloperSkillsTracker
             AnsiConsole.Write(experiencesTable);
             AnsiConsole.Write(certificationsTable);
         }
+        
+        public static void AlterMenu(List<DimSkill> skillsList) 
+        {
+            List<string> skillIds = new List<string>();
+            foreach (var skill in skillsList)
+            {
+                skillIds.Add(skill.Skill_ID.ToString());
+            }
+
+            var skillAlterChoice = AnsiConsole.Prompt(
+                            new SelectionPrompt<string>()
+                            .Title("Please select the ID of the skill you would like to edit")
+                            .PageSize(10)
+                            .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
+                            .AddChoices(skillIds));
+            Console.Clear();
+
+            foreach (var skill in skillsList)
+            {
+                var skillIdChoice = AnsiConsole.Prompt(
+                    new SelectionPrompt<string>()
+                    .Title("Please select the ID of the skill you would like to edit")
+                    .PageSize(10)
+                    .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
+                    .AddChoices(new[] { "Skills", "Experiences", "Certifications", "Exit" }));
+                Console.Clear();
+            }
+        }
+
+        public static void AlterMenu(List<DimExperience> experiencesList)
+        {
+
+        }
+
+        public static void AlterMenu(List<DimCertification> certificationsList)
+        {
+
+        }
     }
 }

@@ -21,10 +21,6 @@ namespace DeveloperSkillsTracker
                 new FigletText("Developer Skills Tracker").Centered().Color(Color.RosyBrown));
             AnsiConsole.Markup("\n[sandybrown]Welcome to the Developer Skills Tracker! Please enter your login details below.[/]\n\n");
 
-            
-
-            
-
             while (true)
             {
                 Console.Write("Username: ");
@@ -58,29 +54,46 @@ namespace DeveloperSkillsTracker
             UserProfile currentUserProfile = new UserProfile(currentUserID, skillsList, experiencesList, certificationsList);
             currentUserProfile.GenerateProfileTable(skillsList, experiencesList, certificationsList);            
             
-
             var userChoice = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                 .Title("What table would you like to make changes to?")
                 .PageSize(10)
                 .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
-                .AddChoices(new[] { "Skills", "Experiences", "Certifications" }));
+                .AddChoices(new[] { "Skills", "Experiences", "Certifications", "Exit" }));
             Console.Clear();
 
 
             //Three paths, but all lead to same function, just on something different
-            //Selecting 
+            //Selecting an option will take you to next page, a more detailed display is displayed
+            //Will show id, name, desc
+            //Another SelectionPrompt, options will be based ids present in list
 
             switch (userChoice)
             {
                 case "Skills":
-                    //skill.AddUserAttribute(context);
+                    Console.WriteLine("Here are your skills: ");
+                    foreach (var skill in skillsList)
+                    {
+                        Console.WriteLine("Skill Name: " + skill.Skill_Name + " - Skill Description: " + skill.Skill_Description + " - Skill ID: " + skill.Skill_ID);
+                    }
+
+                    var skillDecision = AnsiConsole.Prompt(
+                            new SelectionPrompt<string>()
+                            .Title("Would you like to add, delete, or edit a skill?")
+                            .PageSize(10)
+                            .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
+                            .AddChoices(new[] { "Add", "Delete", "Edit", "Back" }));
+                    //Jumping the gun here, this goes straight to choosing a skill, before asking about adding a new one
+                    UserProfile.AlterMenu(skillsList);
                     break;
                 case "Experiences":
-                    //experience.AddUserAttribute(context);
+                    UserProfile.AlterMenu(experiencesList);
                     break;
                 case "Certifications":
-                    //certification.AddUserAttribute(context);
+                    UserProfile.AlterMenu(certificationsList);
+                    break;
+                case "Exit":
+                    Console.WriteLine("Goodbye!");
                     break;
             }
 
