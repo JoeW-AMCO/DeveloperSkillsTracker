@@ -1,7 +1,8 @@
 ﻿using DeveloperSkillsTracker.Database;
 using System.Data;
 using System.Linq;
-
+using Spectre.Console;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace DeveloperSkillsTracker
 {
@@ -16,7 +17,13 @@ namespace DeveloperSkillsTracker
             List<DimCertification> certificationsList;
             string currentUsername;
             int currentUserID;
-            Console.Write("Welcome to the Developer Skills Tracker!\n");
+            AnsiConsole.Write(
+                new FigletText("Developer Skills Tracker").Centered().Color(Color.RosyBrown));
+            AnsiConsole.Markup("\n[sandybrown]Welcome to the Developer Skills Tracker! Please enter your login details below.[/]\n\n");
+
+            
+
+            
 
             while (true)
             {
@@ -39,27 +46,55 @@ namespace DeveloperSkillsTracker
                 {
                     Console.WriteLine("Invalid username or password. Please try again.");
                 }
-            }
-            
-            Console.WriteLine($"Welcome, {currentUsername}! Pretty sure your id is {currentUserID}");
+            }            
 
-            //Create list of skills
-            //Give user list of skill ids for easy referencing
-            //Pass skill id to change attribute, alongside new value parameters
-            
+            Console.Clear();            
+            AnsiConsole.MarkupLine($"[sandybrown]Welcome back, {currentUsername}! Here's your current profile.[/]");                  
 
             skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
-
-            foreach (var skill in skillsList)
-            {
-                Console.WriteLine(skill.Skill_ID + " " + skill.Skill_Name);
-            }
+            experiencesList = context.Experiences.Where(e => e.User_ID == currentUserID).ToList();
+            certificationsList = context.Certifications.Where(c => c.User_ID == currentUserID).ToList();
+            
+            UserProfile currentUserProfile = new UserProfile(currentUserID, skillsList, experiencesList, certificationsList);
+            currentUserProfile.GenerateProfileTable(skillsList, experiencesList, certificationsList);            
             
 
-            int chosenSkillId = 6;
+            var userChoice = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                .Title("What table would you like to make changes to?")
+                .PageSize(10)
+                .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
+                .AddChoices(new[] { "Skills", "Experiences", "Certifications" }));
+            Console.Clear();
+
+
+            //Three paths, but all lead to same function, just on something different
+            //Selecting 
+
+            switch (userChoice)
+            {
+                case "Skills":
+                    //skill.AddUserAttribute(context);
+                    break;
+                case "Experiences":
+                    //experience.AddUserAttribute(context);
+                    break;
+                case "Certifications":
+                    //certification.AddUserAttribute(context);
+                    break;
+            }
+
+
+
+
+
+
+
+
+            /*int chosenSkillId = 6;
             string newSkillName = "Updating with validation";
             string newSkillDescription = "Changing values";
-            DimSkill.ChangeUserAttribute(currentUserID, chosenSkillId, newSkillName, newSkillDescription, context);
+            DimSkill.ChangeUserAttribute(currentUserID, chosenSkillId, newSkillName, newSkillDescription, context);*/
 
             
             //Need to add error handling/other logic to avoid issues when trying to delete when there are no skills etc
@@ -74,7 +109,6 @@ namespace DeveloperSkillsTracker
             };
 
             newSkill.AddUserAttribute(context);*/
-
         }
     }
 }
