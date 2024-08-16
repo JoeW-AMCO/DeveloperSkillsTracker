@@ -29,6 +29,6 @@ namespace DeveloperSkillsTracker
         // Abstract method to be implemented by derived classes
         public abstract void AddUserAttribute(MyDbContext context);
         public abstract void DeleteUserAttribute(MyDbContext context);
-        public abstract void ChangeUserAttribute(MyDbContext context);
+        //public abstract void ChangeUserAttribute(MyDbContext context);
     }
 }

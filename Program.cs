@@ -43,25 +43,37 @@ namespace DeveloperSkillsTracker
             
             Console.WriteLine($"Welcome, {currentUsername}! Pretty sure your id is {currentUserID}");
 
+            //Create list of skills
+            //Give user list of skill ids for easy referencing
+            //Pass skill id to change attribute, alongside new value parameters
             
-            
-            skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();                     
+
+            skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
 
             foreach (var skill in skillsList)
             {
-                Console.WriteLine(skill.Skill_Name);
+                Console.WriteLine(skill.Skill_ID + " " + skill.Skill_Name);
             }
+            
+
+            int chosenSkillId = 6;
+            string newSkillName = "Updating with validation";
+            string newSkillDescription = "Changing values";
+            DimSkill.ChangeUserAttribute(currentUserID, chosenSkillId, newSkillName, newSkillDescription, context);
+
+            
             //Need to add error handling/other logic to avoid issues when trying to delete when there are no skills etc
             //skillsList[0].AddUserAttribute(skillsList[0]);
 
-            DimSkill newSkill = new DimSkill
+            //Adding test
+            /*DimSkill newSkill = new DimSkill
             {
                 Skill_Name = "Refactoring",
                 User_ID = currentUserID,
                 Skill_Description = "Updating inheritance"
             };
 
-            newSkill.AddUserAttribute(context);
+            newSkill.AddUserAttribute(context);*/
 
         }
     }

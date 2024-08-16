@@ -32,18 +32,30 @@ namespace DeveloperSkillsTracker.Database
 
         public override void AddUserAttribute(MyDbContext context)
         {
-                context.Skills.Add(this);
-                context.SaveChanges();            
+            context.Skills.Add(this);
+            context.SaveChanges();            
         }
 
         public override void DeleteUserAttribute(MyDbContext context)
         {
-            
+            context.Skills.Remove(this);
+            context.SaveChanges();
         }
 
-        public override void ChangeUserAttribute(MyDbContext context)
-        {
-            
+        public static void ChangeUserAttribute(int currentUserID, int skillID, string skillName, string skillDescription, MyDbContext context)
+        {            
+            var updatedSkill = context.Skills.FirstOrDefault(x => x.Skill_ID == skillID);
+            int updatedSkillID = updatedSkill.User_ID;
+            if (updatedSkill != null && updatedSkillID == currentUserID)
+            {
+                updatedSkill.Skill_Name = skillName;
+                updatedSkill.Skill_Description = skillDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Couldn't save changes.");
+            }            
         }
     }
 }

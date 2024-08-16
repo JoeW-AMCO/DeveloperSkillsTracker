@@ -36,12 +36,24 @@ namespace DeveloperSkillsTracker.Database
 
         public override void DeleteUserAttribute(MyDbContext context)
         {
-
+            context.Certifications.Remove(this);
+            context.SaveChanges();
         }
 
-        public override void ChangeUserAttribute(MyDbContext context)
+        public static void ChangeUserAttribute(int currentUserID, int certificationID, string certificationName, string certificationDescription, MyDbContext context)
         {
-
+            var updatedCertification = context.Certifications.FirstOrDefault(x => x.Certification_ID == certificationID);
+            int updatedCertificationID = updatedCertification.User_ID;
+            if (updatedCertification != null && updatedCertificationID == currentUserID)
+            {
+                updatedCertification.Certification_Name = certificationName;
+                updatedCertification.Certification_Description = certificationDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Couldn't save changes.");
+            }
         }
     }
 }

@@ -36,12 +36,24 @@ namespace DeveloperSkillsTracker.Database
 
         public override void DeleteUserAttribute(MyDbContext context)
         {
-
+            context.Experiences.Remove(this);
+            context.SaveChanges();
         }
 
-        public override void ChangeUserAttribute(MyDbContext context)
+        public static void ChangeUserAttribute(int currentUserID, int experienceID, string experienceName, string experienceDescription, MyDbContext context)
         {
-
+            var updatedExperience = context.Experiences.FirstOrDefault(x => x.Experience_ID == experienceID);
+            int updatedExperienceID = updatedExperience.User_ID;
+            if (updatedExperience != null && updatedExperienceID == currentUserID)
+            {
+                updatedExperience.Experience_Name = experienceName;
+                updatedExperience.Experience_Description = experienceDescription;
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Couldn't save changes.");
+            }
         }
     }
 }
