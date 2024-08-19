@@ -27,6 +27,8 @@ namespace DeveloperSkillsTracker
             Certifications = certifications;
         }
 
+
+
         public void GenerateProfileTable(List<DimSkill> skillsList, List<DimExperience> experiencesList, List<DimCertification> certificationsList)
         {
             var skillsTable = new Spectre.Console.Table();
