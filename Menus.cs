@@ -19,6 +19,7 @@ namespace DeveloperSkillsTracker
 
             while (true)
             {
+                AnsiConsole.Markup("\n[sandybrown]Welcome to the Developer Skills Tracker! Please enter your login details below.[/]\n\n");
                 Console.Write("Username: ");
                 string username = Console.ReadLine() ?? string.Empty;
                 Console.Write("Password: ");
@@ -108,7 +109,7 @@ namespace DeveloperSkillsTracker
             }
         }
 
-        public static void AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice)
+        public static bool AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice, bool backPressed)
         {
             switch (attributeChoice) 
             {
@@ -118,23 +119,27 @@ namespace DeveloperSkillsTracker
                     Console.WriteLine("Please enter the description of the skill you would like to add:\n");
                     string newSkillDescription = Console.ReadLine() ?? string.Empty;
                     new DimSkill(profile.UserId, newSkillName, newSkillDescription).AddUserAttribute(context);
-                    break;
+                    return backPressed;
                 case "Experiences":
                     Console.WriteLine("Please enter the name of the experience you would like to add:\n");
                     string newExperienceName = Console.ReadLine() ?? string.Empty;
                     Console.WriteLine("Please enter the description of the experience you would like to add:\n");
                     string newExperienceDescription = Console.ReadLine() ?? string.Empty;
                     new DimExperience(profile.UserId, newExperienceName, newExperienceDescription).AddUserAttribute(context);
-                    break;
+                    return backPressed;
                 case "Certifications":
                     Console.WriteLine("Please enter the name of the certification you would like to add:\n");
                     string newCertificationName = Console.ReadLine() ?? string.Empty;
                     Console.WriteLine("Please enter the description of the certification you would like to add:\n");
                     string newCertificationDescription = Console.ReadLine() ?? string.Empty;
                     new DimCertification(profile.UserId, newCertificationName, newCertificationDescription).AddUserAttribute(context);
-                    break;
+                    return backPressed;
+                case "Back":
+                    backPressed = true;
+                    return backPressed;                    
                 default:
-                    break;
+                    Console.WriteLine("Something has gone horribly wrong.");
+                    return backPressed;
             }
         }
 
@@ -275,31 +280,6 @@ namespace DeveloperSkillsTracker
                 default:
                     break;
             }
-
-            /*List<string> skillIds = new List<string>();
-            foreach (var skill in skillsList)
-            {
-                skillIds.Add(skill.Skill_ID.ToString());
-            }
-
-            var skillAlterChoice = AnsiConsole.Prompt(
-                            new SelectionPrompt<string>()
-                            .Title("Please select the ID of the skill you would like to edit")
-                            .PageSize(10)
-                            .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
-                            .AddChoices(skillIds));
-            Console.Clear();
-
-            foreach (var skill in skillsList)
-            {
-                var skillIdChoice = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                    .Title("Please select the ID of the skill you would like to edit")
-                    .PageSize(10)
-                    .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
-                    .AddChoices(new[] { "Skills", "Experiences", "Certifications", "Exit" }));
-                Console.Clear();
-            }*/
         }
     }
 }

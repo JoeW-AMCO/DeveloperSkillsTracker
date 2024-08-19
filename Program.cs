@@ -11,50 +11,69 @@ namespace DeveloperSkillsTracker
         static void Main(string[] args)
         {
             var context = new MyDbContext();
-            
+            bool exitProgram = false;
+            bool backPressed = false;
+            bool backToTable = false;
+
             string currentUsername;
             int currentUserID;
             AnsiConsole.Write(
-                new FigletText("Developer Skills Tracker").Centered().Color(Color.RosyBrown));
-            AnsiConsole.Markup("\n[sandybrown]Welcome to the Developer Skills Tracker! Please enter your login details below.[/]\n\n");
+                new FigletText("Developer Skills Tracker").Centered().Color(Color.RosyBrown));            
 
-            DimUser userDetails = Menus.MainMenu(context);
-            
-            
-            currentUsername = userDetails.Username;
-            currentUserID = userDetails.User_ID;
-
-            List<DimSkill> skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
-            List<DimExperience> experiencesList = context.Experiences.Where(e => e.User_ID == currentUserID).ToList();
-            List<DimCertification> certificationsList = context.Certifications.Where(c => c.User_ID == currentUserID).ToList();
-
-            UserProfile profile = new UserProfile(userDetails.Username, userDetails.User_ID, skillsList, experiencesList, certificationsList);
-
-            Console.Clear();
-
-            string attributeChoice = Menus.TableViewer(context, profile);
-
-            Console.Clear();
-
-            string changeChoice = Menus.DataViewer(context, profile, attributeChoice);
-
-            //Console.Clear();
-
-            if (changeChoice != "Exit")
+            while (!exitProgram)
             {
-                if (changeChoice == "Add")
+                DimUser userDetails = Menus.MainMenu(context);
+
+                currentUsername = userDetails.Username;
+                currentUserID = userDetails.User_ID;
+
+                List<DimSkill> skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
+                List<DimExperience> experiencesList = context.Experiences.Where(e => e.User_ID == currentUserID).ToList();
+                List<DimCertification> certificationsList = context.Certifications.Where(c => c.User_ID == currentUserID).ToList();
+
+                UserProfile profile = new UserProfile(userDetails.Username, userDetails.User_ID, skillsList, experiencesList, certificationsList);
+
+                Console.Clear();
+
+                while (!backToTable)
                 {
-                    Menus.AddMenu(context, profile, attributeChoice, changeChoice);
+                    string attributeChoice = Menus.TableViewer(context, profile);
+
+                    if (attributeChoice == "Exit")
+                    {                      
+                        exitProgram = true;
+                        break;
+                    }
+
+                    
+                    Console.Clear();
+
+                    while (!backPressed)
+                    {
+                        string changeChoice = Menus.DataViewer(context, profile, attributeChoice);
+                        Console.Clear();
+
+                        if (changeChoice == "Add")
+                        {
+                            Menus.AddMenu(context, profile, attributeChoice, changeChoice, backPressed);
+                        }
+                        else if (changeChoice == "Delete")
+                        {
+                            Menus.DeleteMenu(context, profile, attributeChoice, changeChoice);
+                        }
+                        else if (changeChoice == "Edit")
+                        {
+                            Menus.EditMenu(context, profile, attributeChoice, changeChoice);
+                        }
+                        else if (changeChoice == "Back")
+                        {
+                            Console.Clear();
+                            Menus.TableViewer(context, profile);
+                        }                        
+                    }
                 }
-                else if (changeChoice == "Delete")
-                {
-                    Menus.DeleteMenu(context, profile, attributeChoice, changeChoice);
-                }
-                else if (changeChoice == "Edit")
-                {
-                    Menus.EditMenu(context, profile, attributeChoice, changeChoice);
-                }
-            }
+                exitProgram = false;
+            }            
         }
     }
 }
