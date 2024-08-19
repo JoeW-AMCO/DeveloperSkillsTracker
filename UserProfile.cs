@@ -12,6 +12,7 @@ namespace DeveloperSkillsTracker
 {
     internal class UserProfile
     {
+        public string Username { get; set; }
         public int UserId { get; set; }
 
 
@@ -19,13 +20,16 @@ namespace DeveloperSkillsTracker
         public List<DimCertification> Certifications { get; set; }
         public List<DimExperience> Experiences { get; set; }
 
-        public UserProfile(int userId, List<DimSkill> skills, List<DimExperience> experiences, List<DimCertification> certifications)
+        public UserProfile(string username, int userId, List<DimSkill> skills, List<DimExperience> experiences, List<DimCertification> certifications)
         {
+            Username = username;
             UserId = userId;
             Skills = skills;
             Experiences = experiences;
             Certifications = certifications;
         }
+
+
 
         public void GenerateProfileTable(List<DimSkill> skillsList, List<DimExperience> experiencesList, List<DimCertification> certificationsList)
         {
@@ -62,6 +66,6 @@ namespace DeveloperSkillsTracker
             AnsiConsole.Write(skillsTable);
             AnsiConsole.Write(experiencesTable);
             AnsiConsole.Write(certificationsTable);
-        }
+        }              
     }
 }
