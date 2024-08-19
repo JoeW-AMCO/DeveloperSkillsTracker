@@ -12,6 +12,7 @@ namespace DeveloperSkillsTracker
 {
     internal class UserProfile
     {
+        public string Username { get; set; }
         public int UserId { get; set; }
 
 
@@ -19,8 +20,9 @@ namespace DeveloperSkillsTracker
         public List<DimCertification> Certifications { get; set; }
         public List<DimExperience> Experiences { get; set; }
 
-        public UserProfile(int userId, List<DimSkill> skills, List<DimExperience> experiences, List<DimCertification> certifications)
+        public UserProfile(string username, int userId, List<DimSkill> skills, List<DimExperience> experiences, List<DimCertification> certifications)
         {
+            Username = username;
             UserId = userId;
             Skills = skills;
             Experiences = experiences;
@@ -64,44 +66,6 @@ namespace DeveloperSkillsTracker
             AnsiConsole.Write(skillsTable);
             AnsiConsole.Write(experiencesTable);
             AnsiConsole.Write(certificationsTable);
-        }
-        
-        public static void AlterMenu(List<DimSkill> skillsList) 
-        {
-            List<string> skillIds = new List<string>();
-            foreach (var skill in skillsList)
-            {
-                skillIds.Add(skill.Skill_ID.ToString());
-            }
-
-            var skillAlterChoice = AnsiConsole.Prompt(
-                            new SelectionPrompt<string>()
-                            .Title("Please select the ID of the skill you would like to edit")
-                            .PageSize(10)
-                            .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
-                            .AddChoices(skillIds));
-            Console.Clear();
-
-            foreach (var skill in skillsList)
-            {
-                var skillIdChoice = AnsiConsole.Prompt(
-                    new SelectionPrompt<string>()
-                    .Title("Please select the ID of the skill you would like to edit")
-                    .PageSize(10)
-                    .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
-                    .AddChoices(new[] { "Skills", "Experiences", "Certifications", "Exit" }));
-                Console.Clear();
-            }
-        }
-
-        public static void AlterMenu(List<DimExperience> experiencesList)
-        {
-
-        }
-
-        public static void AlterMenu(List<DimCertification> certificationsList)
-        {
-
-        }
+        }              
     }
 }
