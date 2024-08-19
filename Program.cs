@@ -38,7 +38,7 @@ namespace DeveloperSkillsTracker
 
             string changeChoice = Menus.DataViewer(context, profile, attributeChoice);
 
-            Console.Clear();
+            //Console.Clear();
 
             if (changeChoice != "Exit")
             {
