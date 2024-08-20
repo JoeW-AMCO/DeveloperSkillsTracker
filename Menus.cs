@@ -63,40 +63,46 @@ namespace DeveloperSkillsTracker
             switch (attributeChoice)
             {
                 case "Skills":
-                    Console.WriteLine("Here are your skills: ");
+                    AnsiConsole.MarkupLine("[sandybrown]Here are your skills:[/]\n");                    
                     foreach (var skill in profile.Skills)
                     {
-                        Console.WriteLine("Skill Name: " + skill.Skill_Name + " - Skill Description: " + skill.Skill_Description + " - Skill ID: " + skill.Skill_ID);
+                        AnsiConsole.MarkupLine($"[sandybrown]Skill Name:[/] {skill.Skill_Name} " + "[lightgoldenrod3]---[/]" + $"[sandybrown] Skill ID:[/] {skill.Skill_ID}");
+                        AnsiConsole.MarkupLine($"[sandybrown]Skill Description:[/] {skill.Skill_Description}");
+                        AnsiConsole.MarkupLine($"[lightgoldenrod3] -------------------------------- [/]");
                     }
                     var skillDecision = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Would you like to add, delete, or edit a skill?")
+                            .Title("\nWould you like to add, delete, or edit a skill?")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(new[] { "Add", "Delete", "Edit", "Back" }));                   
                     return skillDecision;
                 case "Experiences":
-                    Console.WriteLine("Here are your experiences: ");
+                    AnsiConsole.MarkupLine("[sandybrown]Here are your experiences:[/]\n");
                     foreach (var experience in profile.Experiences)
                     {
-                        Console.WriteLine("Experience Name: " + experience.Experience_Name + " - Experience Description: " + experience.Experience_Description + " - Experience ID: " + experience.Experience_ID);
+                        AnsiConsole.MarkupLine($"[sandybrown]Experience Name:[/] {experience.Experience_Name} " + "[lightgoldenrod3]---[/]" + $"[sandybrown] Skill ID:[/] {experience.Experience_ID}");
+                        AnsiConsole.MarkupLine($"[sandybrown]Experience Description:[/] {experience.Experience_Description}");
+                        AnsiConsole.MarkupLine($"[lightgoldenrod3] -------------------------------- [/]");
                     }
                     var experienceDecision = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Would you like to add, delete, or edit an experience?")
+                            .Title("\nWould you like to add, delete, or edit an experience?")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(new[] { "Add", "Delete", "Edit", "Back" }));
                     return experienceDecision;
                 case "Certifications":
-                    Console.WriteLine("Here are your certifications: ");
+                    AnsiConsole.MarkupLine("[sandybrown]Here are your certifications:[/]\n");
                     foreach (var certification in profile.Certifications)
                     {
-                        Console.WriteLine("Certification Name: " + certification.Certification_Name + " - Certification Description: " + certification.Certification_Description + " - Certification ID: " + certification.Certification_ID);
+                        AnsiConsole.MarkupLine($"[sandybrown]Certification Name:[/] {certification.Certification_Name} " + "[lightgoldenrod3]---[/]" + $"[sandybrown] Certification ID:[/]  {certification.Certification_ID}");
+                        AnsiConsole.MarkupLine($"[sandybrown]Certification Description:[/]  {certification.Certification_Description}");
+                        AnsiConsole.MarkupLine($"[lightgoldenrod3] -------------------------------- [/]");
                     }
                     var certificationDecision = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Would you like to add, delete, or edit a certification?")
+                            .Title("\nWould you like to add, delete, or edit a certification?")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(new[] { "Add", "Delete", "Edit", "Back" }));
@@ -109,37 +115,49 @@ namespace DeveloperSkillsTracker
             }
         }
 
-        public static bool AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice, bool backPressed)
+        public static void AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice, bool backPressed)
         {
             switch (attributeChoice) 
             {
                 case "Skills":
-                    Console.WriteLine("Please enter the name of the skill you would like to add:\n");
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the name of the skill you would like to add (or enter 'back' to go back):\n[/]");                    
                     string newSkillName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the skill you would like to add:\n");
+                    if (newSkillName.Equals("Back", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the description of the skill you would like to add:\n[/]");                    
                     string newSkillDescription = Console.ReadLine() ?? string.Empty;
                     new DimSkill(profile.UserId, newSkillName, newSkillDescription).AddUserAttribute(context);
-                    return backPressed;
+                    break;
                 case "Experiences":
-                    Console.WriteLine("Please enter the name of the experience you would like to add:\n");
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the name of the experience you would like to add (or enter 'back' to go back):\n[/]");
                     string newExperienceName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the experience you would like to add:\n");
+                    if (newExperienceName.Equals("Back", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the description of the experience you would like to add:\n[/]");
                     string newExperienceDescription = Console.ReadLine() ?? string.Empty;
                     new DimExperience(profile.UserId, newExperienceName, newExperienceDescription).AddUserAttribute(context);
-                    return backPressed;
+                    break;
                 case "Certifications":
-                    Console.WriteLine("Please enter the name of the certification you would like to add:\n");
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the name of the certification you would like to add (or enter 'back' to go back):\n[/]");
                     string newCertificationName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the certification you would like to add:\n");
+                    if (newCertificationName.Equals("Back", StringComparison.OrdinalIgnoreCase))
+                    {
+                        break;
+                    }
+                    AnsiConsole.MarkupLine("[sandybrown]Please enter the description of the certification you would like to add:\n[/]");
                     string newCertificationDescription = Console.ReadLine() ?? string.Empty;
                     new DimCertification(profile.UserId, newCertificationName, newCertificationDescription).AddUserAttribute(context);
-                    return backPressed;
+                    break;
                 case "Back":
                     backPressed = true;
-                    return backPressed;                    
+                    break;
                 default:
                     Console.WriteLine("Something has gone horribly wrong.");
-                    return backPressed;
+                    break;
             }
         }
 
@@ -162,17 +180,21 @@ namespace DeveloperSkillsTracker
                 attributeIdsInt = context.Certifications.Where(s => s.User_ID == profile.UserId).Select(c => c.Certification_ID).ToList();
                 attributeIds = attributeIdsInt.Select(i => i.ToString()).ToList();
             }
-            
+            attributeIds.Add("Back");
 
             switch (attributeChoice)
             {                
                 case "Skills":
                     var skillDeleteChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the skill you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the skill you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (skillDeleteChoice == "Back")
+                    {
+                        break;
+                    }
                     int skillDeleteChoiceInt = int.Parse(skillDeleteChoice);
                     DimSkill skillToDelete = context.Skills.Find(skillDeleteChoiceInt);
                     skillToDelete.DeleteUserAttribute(context);
@@ -180,10 +202,14 @@ namespace DeveloperSkillsTracker
                 case "Experiences":
                     var experienceDeleteChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the experience you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the experience you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (experienceDeleteChoice == "Back")
+                    {
+                        break;
+                    }
                     int experienceDeleteChoiceInt = int.Parse(experienceDeleteChoice);
                     DimExperience experienceToDelete = context.Experiences.Find(experienceDeleteChoiceInt);
                     experienceToDelete.DeleteUserAttribute(context);
@@ -191,10 +217,14 @@ namespace DeveloperSkillsTracker
                 case "Certifications":
                     var certificationDeleteChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the certification you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the certification you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (certificationDeleteChoice == "Back")
+                    {
+                        break;
+                    }
                     int certificationDeleteChoiceInt = int.Parse(certificationDeleteChoice);
                     DimCertification certificationToDelete = context.Certifications.Find(certificationDeleteChoiceInt);
                     certificationToDelete.DeleteUserAttribute(context);
@@ -223,22 +253,27 @@ namespace DeveloperSkillsTracker
                 attributeIdsInt = context.Certifications.Where(s => s.User_ID == profile.UserId).Select(c => c.Certification_ID).ToList();
                 attributeIds = attributeIdsInt.Select(i => i.ToString()).ToList();
             }
+            attributeIds.Add("Back");
 
             switch (attributeChoice)
             {
                 case "Skills":
                     var skillChangeChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the skill you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the skill you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (skillChangeChoice == "Back")
+                    {
+                        break;
+                    }
                     int skillChangeChoiceInt = int.Parse(skillChangeChoice);
                     DimSkill skillToChange = context.Skills.Find(skillChangeChoiceInt);
 
-                    Console.WriteLine("Please enter the name of the skill you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the name of the new skill:\n[/]");                    
                     string newSkillName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the skill you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the description of the new skill:\n[/]");
                     string newSkillDescription = Console.ReadLine() ?? string.Empty;
 
                     DimSkill.ChangeUserAttribute(profile.UserId, skillChangeChoiceInt, newSkillName, newSkillDescription, context);
@@ -246,16 +281,20 @@ namespace DeveloperSkillsTracker
                 case "Experiences":
                     var experienceChangeChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the experience you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the experience you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (experienceChangeChoice == "Back")
+                    {
+                        break;
+                    }
                     int experienceChangeChoiceInt = int.Parse(experienceChangeChoice);
                     DimExperience experienceToChange = context.Experiences.Find(experienceChangeChoiceInt);
 
-                    Console.WriteLine("Please enter the name of the experience you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the name of the new experience:\n[/]");
                     string newExperienceName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the experience you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the description of the new experience:\n[/]");
                     string newExperienceDescription = Console.ReadLine() ?? string.Empty;
 
                     DimExperience.ChangeUserAttribute(profile.UserId, experienceChangeChoiceInt, newExperienceName, newExperienceDescription, context);
@@ -263,16 +302,20 @@ namespace DeveloperSkillsTracker
                 case "Certifications":
                     var certificationChangeChoice = AnsiConsole.Prompt(
                             new SelectionPrompt<string>()
-                            .Title("Please select the ID of the certification you would like to edit")
+                            .Title("[sandybrown]Please select the ID of the certification you would like to edit[/]")
                             .PageSize(10)
                             .MoreChoicesText("(↑) Move up / (↓) Move down / (Enter) Select")
                             .AddChoices(attributeIds));
+                    if (certificationChangeChoice == "Back")
+                    {
+                        break;
+                    }
                     int certificationChangeChoiceInt = int.Parse(certificationChangeChoice);
                     DimCertification certificationToChange = context.Certifications.Find(certificationChangeChoiceInt);
 
-                    Console.WriteLine("Please enter the name of the certification you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the name of the new certification:\n[/]");
                     string newCertificationName = Console.ReadLine() ?? string.Empty;
-                    Console.WriteLine("Please enter the description of the certification you would like to add:\n");
+                    AnsiConsole.MarkupLine($"[sandybrown]Please enter the description of the new certification:\n[/]");
                     string newCertificationDescription = Console.ReadLine() ?? string.Empty;
 
                     DimCertification.ChangeUserAttribute(profile.UserId, certificationChangeChoiceInt, newCertificationName, newCertificationDescription, context);

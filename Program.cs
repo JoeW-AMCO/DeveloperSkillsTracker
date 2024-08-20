@@ -35,8 +35,17 @@ namespace DeveloperSkillsTracker
 
                 Console.Clear();
 
-                while (!backToTable)
+                bool inTableViewer = true;
+
+                while (inTableViewer)
                 {
+                    //Refresh Lists
+                    skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
+                    experiencesList = context.Experiences.Where(e => e.User_ID == currentUserID).ToList();
+                    certificationsList = context.Certifications.Where(c => c.User_ID == currentUserID).ToList();
+                    profile.Skills = skillsList;
+                    profile.Experiences = experiencesList;
+                    profile.Certifications = certificationsList;
                     string attributeChoice = Menus.TableViewer(context, profile);
 
                     if (attributeChoice == "Exit")
@@ -45,12 +54,22 @@ namespace DeveloperSkillsTracker
                         break;
                     }
 
-                    
-                    Console.Clear();
+                    bool inDataViewer = true;
 
-                    while (!backPressed)
+                    while (inDataViewer)
                     {
+                        ////Refresh Lists
+                        skillsList = context.Skills.Where(s => s.User_ID == currentUserID).ToList();
+                        experiencesList = context.Experiences.Where(e => e.User_ID == currentUserID).ToList();
+                        certificationsList = context.Certifications.Where(c => c.User_ID == currentUserID).ToList();
+                        profile.Skills = skillsList;
+                        profile.Experiences = experiencesList;
+                        profile.Certifications = certificationsList;
+
+                        Console.Clear();
+
                         string changeChoice = Menus.DataViewer(context, profile, attributeChoice);
+
                         Console.Clear();
 
                         if (changeChoice == "Add")
@@ -68,10 +87,11 @@ namespace DeveloperSkillsTracker
                         else if (changeChoice == "Back")
                         {
                             Console.Clear();
-                            Menus.TableViewer(context, profile);
-                        }                        
+                            inDataViewer = false;
+                        }
                     }
                 }
+                backToTable = false;
                 exitProgram = false;
             }            
         }
