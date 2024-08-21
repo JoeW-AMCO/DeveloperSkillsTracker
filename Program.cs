@@ -1,19 +1,20 @@
-﻿using DeveloperSkillsTracker.Database;
+﻿using System.Runtime.CompilerServices;
+using DeveloperSkillsTracker.Database;
 using System.Data;
 using System.Linq;
 using Spectre.Console;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+[assembly: InternalsVisibleTo("DeveloperSkillsTracker.Tests")]
 
 namespace DeveloperSkillsTracker
 {
     internal class Program
     {
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             var context = new MyDbContext();
             bool exitProgram = false;
-            bool backPressed = false;
-            bool backToTable = false;
+            bool backPressed = false;            
 
             string currentUsername;
             int currentUserID;
@@ -74,7 +75,7 @@ namespace DeveloperSkillsTracker
 
                         if (changeChoice == "Add")
                         {
-                            Menus.AddMenu(context, profile, attributeChoice, changeChoice, backPressed);
+                            Menus.AddMenu(context, profile, attributeChoice, changeChoice);
                         }
                         else if (changeChoice == "Delete")
                         {
@@ -90,8 +91,7 @@ namespace DeveloperSkillsTracker
                             inDataViewer = false;
                         }
                     }
-                }
-                backToTable = false;
+                }                
                 exitProgram = false;
             }            
         }

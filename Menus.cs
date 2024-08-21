@@ -33,6 +33,7 @@ namespace DeveloperSkillsTracker
                 {
                     currentUsername = tryLogin.Username;
                     currentUserID = tryLogin.User_ID;
+                    Console.WriteLine($"\nWelcome back, {currentUsername}!\n");
                     return tryLogin;
                 }
                 else
@@ -115,7 +116,7 @@ namespace DeveloperSkillsTracker
             }
         }
 
-        public static void AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice, bool backPressed)
+        public static void AddMenu(MyDbContext context, UserProfile profile, string attributeChoice, string changeChoice)
         {
             switch (attributeChoice) 
             {
@@ -152,8 +153,7 @@ namespace DeveloperSkillsTracker
                     string newCertificationDescription = Console.ReadLine() ?? string.Empty;
                     new DimCertification(profile.UserId, newCertificationName, newCertificationDescription).AddUserAttribute(context);
                     break;
-                case "Back":
-                    backPressed = true;
+                case "Back":                    
                     break;
                 default:
                     Console.WriteLine("Something has gone horribly wrong.");
