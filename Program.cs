@@ -52,6 +52,7 @@ namespace DeveloperSkillsTracker
                     if (attributeChoice == "Exit")
                     {                      
                         exitProgram = true;
+                        Console.Clear();
                         break;
                     }
 
