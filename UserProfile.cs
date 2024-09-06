@@ -29,6 +29,15 @@ namespace DeveloperSkillsTracker
             Certifications = certifications;
         }
 
+        public UserProfile(string username, int userId)
+        {
+            Username = username;
+            UserId = userId;
+            Skills = new List<DimSkill>();
+            Experiences = new List<DimExperience>();
+            Certifications = new List<DimCertification>();
+        }
+
 
 
         public void GenerateProfileTable(List<DimSkill> skillsList, List<DimExperience> experiencesList, List<DimCertification> certificationsList)
