@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using DeveloperSkillsTracker.Database;
 using Microsoft.EntityFrameworkCore;
-//using System.Data.Entity;    Causes a lot of errors but is probably key to getting Migrations (important!) to work
 
 namespace DeveloperSkillsTracker
 {
@@ -15,10 +14,6 @@ namespace DeveloperSkillsTracker
         public DbSet<DimCertification> Certifications { get; set; }
         public DbSet<DimExperience> Experiences { get; set; }
         public DbSet<DimSkill> Skills { get; set; }
-
-        //public MyDbContext(DbContextOptions<MyDbContext> options) : base(options)
-        //{
-        //}
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
