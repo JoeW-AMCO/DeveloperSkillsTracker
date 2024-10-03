@@ -18,7 +18,7 @@ namespace DeveloperSkillsTracker
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Specify your SQL Server connection string
-            optionsBuilder.UseSqlServer(@"data source=ASWW00227\SQLEXPRESS;initial catalog=SkillsTracker;trusted_connection=true;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"data source=192.168.40.36, 1433;initial catalog=SkillsTracker;User ID=autouser;Password=Aut0P@ss;TrustServerCertificate=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
