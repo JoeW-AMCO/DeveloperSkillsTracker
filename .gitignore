@@ -3,6 +3,26 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
+# Ignore runner working directory
+actions-runner/_work/
+
+# Ignore runner configuration files
+actions-runner/.credentials
+actions-runner/.env
+actions-runner/.runner
+actions-runner/.service
+actions-runner/.token
+
+# Ignore diagnostics and logs
+actions-runner/_diag/
+
+# Ignore binaries and scripts
+actions-runner/bin/
+actions-runner/svc.sh
+actions-runner/config.sh
+actions-runner/run.sh
+actions-runner/svc.sh
+
 # User-specific files
 *.rsuser
 *.suo
